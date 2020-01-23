@@ -1,0 +1,43 @@
+.Toolbar{
+    align-items: center;
+    /* justify-content: center; */
+    display: flex;
+    grid-column: 1 / -1;
+    background-color: blueviolet;
+    width: 100%;
+}
+
+.SearchForm{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.SearchInput{
+    width: 30vw;
+    height: 4vh;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: none;
+}
+
+.SearchButton{
+    width: 3vw;
+    height: 4vh;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: none;
+    background-color: orange;
+}
+
+.SearchInput::placeholder{
+    padding-left: 15px;
+    font-size: large;
+}
+
+.SearchInput:active{
+    border: none;
+}
+
+/* .Toolbar h1{
+    margin-left: 25px;
+} */

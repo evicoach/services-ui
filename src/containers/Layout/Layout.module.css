@@ -1,0 +1,6 @@
+.Layout{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 8vh auto 50vh;
+    gap: 20px;
+}
