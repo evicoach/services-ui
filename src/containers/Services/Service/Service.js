@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Card from "../../../components/Card/Card";
+import Card from "../../../components/UI/Card/Card";
 import classes from "./Service.module.css";
 
 class Service extends Component {
