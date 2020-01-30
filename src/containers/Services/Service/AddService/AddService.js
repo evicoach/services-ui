@@ -82,8 +82,8 @@ class AddService extends Component {
         console.log(data);
 
         // data = JSON.stringify(data);
-        // axios.post('https://services-fix-api.herokuapp.com/services', data)
-            axios.post('http://localhost:5000/services', data)
+        axios.post('https://services-fix-api.herokuapp.com/services', data)
+            // axios.post('http://localhost:5000/services', data)
             .then(response => console.log("Response from backend", response))
             .catch(err => console.log(err));
     }
