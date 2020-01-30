@@ -1,0 +1,62 @@
+.AddService{
+    grid-column: 2 / 12;
+    align-items: stretch;
+    background-color: whitesmoke;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 8px #ccc;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    justify-content: center;
+    padding: 1.5%;
+    color: orange;
+}
+
+.AddServiceInput, .AddServiceInput:active{
+    border-style: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: none;
+    /* text-align: center; */
+    width: 80%;
+    height: 40px;
+    display: block;
+    align-self: stretch;
+    padding: 0;
+    border: 1px solid grey;
+}
+.AddServiceInput::placeholder{
+    padding-left: 15px;
+}
+.Submit{
+    width: 80%;
+    height: 30px;
+    margin-bottom: 30px;
+    background-color: orange;
+    border-style: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+}
+input[type=file]{
+    display: none;
+}
+
+.FileSimulator{
+    display: block;
+    border-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: none;
+    /* text-align: center; */
+    width: 80%;
+    height: 40px;
+    display: block;
+    align-self: stretch;
+    padding: 0;
+    border: 1px solid grey;
+}

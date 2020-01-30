@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
+import Card from '../../../../components/UI/Card/Card';
 import { CLOUDURL as url, CLOUDPRESET as preset } from '../../../../config/config'
+import Input from "../../../../components/UI/Input/Input";
 import classes from './AddService.module.css';
 
 
@@ -11,6 +13,8 @@ class AddService extends Component {
         description: '',
         imageUrl: '',
     }
+    // ref to the file upload input button
+    fileInputRef = React.createRef();
 
     onTitleChangeHandler = (event) => {
         this.setState({ title: event.target.value });
@@ -20,7 +24,7 @@ class AddService extends Component {
     }
 
     onFileChangeHandler = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         let file = event.target.files[0];
 
         let formData = new FormData();
@@ -43,32 +47,57 @@ class AddService extends Component {
             });
     }
 
+    uploadClick = () => {
+        console.log('file button clicked');
+    }
+
     addServiceHandler = () => {
 
     }
+    onClickSimulator = (event) => {
+        event.preventDefault();
+        const uploadNode = this.fileInputRef.current;
+        uploadNode.click();
+    }
     render() {
         return (
-            <form action="" method="post" onSubmit={this.addServiceHandler}>
-                <input className={classes.AddServiceInput}
-                    name="title"
-                    type="text" placeholder="Service Name"
-                    onChange={this.onTitleChangeHandler} />
-                <input className={classes.AddServiceInput}
-                    name="description"
-                    type="text" placeholder="Servce Description"
-                    onChange={this.onDescriptionChangeHandler} />
-                <input className={classes.AddServiceInput}
-                    name="price"
-                    type="number"
-                    placeholder="Basic charge"
-                    onChange={this.onFileChangeHandler} />
-                <input className={classes.AddServiceInput}
-                    name="serviceimage"
-                    type="file"
-                    onChange={this.onFileChangeHandler} />
 
-                <input type="submit" value="Add Service" />
-            </form>
+            <Card className={classes.AddService}>
+                <form
+                    className={classes.AddSrvice}
+                    onSubmit={this.addServiceHandler}>
+                    <input className={classes.AddServiceInput}
+                        name="title"
+                        type="text" placeholder="Service Name"
+                        onChange={this.onTitleChangeHandler} />
+                    <input className={classes.AddServiceInput}
+                        name="description"
+                        type="text" placeholder="Servce Description"
+                        onChange={this.onDescriptionChangeHandler} />
+                    <input className={classes.AddServiceInput}
+                        name="price"
+                        type="number"
+                        placeholder="Basic charge"
+                        onChange={this.onPriceChangeHandler} />
+                    
+
+                    <input
+                        onClick={this.uploadClick}
+                        ref={this.fileInputRef}
+                        name="serviceimage"
+                        type="file"
+                        onChange={this.onFileChangeHandler}
+                    />  
+                    
+                    <button
+                        className={classes.FileSimulator}
+                        onClick={this.onClickSimulator}
+                    >Choose Image</button>
+
+                    <input className={classes.Submit}
+                        type="submit" value="Add Service" />
+                </form>
+            </Card>
         );
     }
 }

@@ -1,0 +1,8 @@
+.NavigationItem{
+    color: white;
+    margin: 5px 10px;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
