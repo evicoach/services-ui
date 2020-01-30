@@ -11,20 +11,34 @@ class AddService extends Component {
     state = {
         title: '',
         description: '',
-        imageUrl: '',
-        basePrice: ''
+        basePrice: '',
+        imageUrl: ''
     }
+
     // ref to the file upload input button
     fileInputRef = React.createRef();
 
     onTitleChangeHandler = (event) => {
-        this.setState({ title: event.target.value });
+        event.persist();
+        setTimeout(() => {
+            this.setState({ title: event.target.value });
+            console.log(this.state.title)
+        }, 1000);
     }
     onDescriptionChangeHandler = (event) => {
-        this.setState({ description: event.target.value });;
+        event.persist();
+        setTimeout(() => {
+            this.setState({ description: event.target.value });
+            console.log(this.state.description)
+        }, 1000);
     }
+
     onPriceChangeHandler = (event) => {
-        this.setState({ price: event.target.value });
+        event.persist();
+        setTimeout(() => {
+            this.setState({ basePrice: event.target.value });
+            console.log(this.state.price);
+        }, 1000);
     }
 
     onFileChangeHandler = (event) => {
@@ -45,7 +59,8 @@ class AddService extends Component {
         })
             .then(response => {
                 console.log(response.data);
-                this.setState({ imageUrl: response.data.secureurl });
+                this.setState({ imageUrl: response.data.secure_url });
+                console.log(this.state.imageUrl)
             })
             .catch(err => {
                 console.log('something went wrong');
@@ -64,10 +79,13 @@ class AddService extends Component {
             imageUrl: this.state.imageUrl
         }
 
-        data = JSON.stringify(data);
-        axios.post('https://services-fix-api.herokuapp.com/services', data)
-            // axios.post('http://localhost:5000',data)
-            .then(response => console.log("Response from backend", response));
+        console.log(data);
+
+        // data = JSON.stringify(data);
+        // axios.post('https://services-fix-api.herokuapp.com/services', data)
+            axios.post('http://localhost:5000/services', data)
+            .then(response => console.log("Response from backend", response))
+            .catch(err => console.log(err));
     }
 
 
