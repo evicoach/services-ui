@@ -12,6 +12,7 @@ class AddService extends Component {
         title: '',
         description: '',
         imageUrl: '',
+        basePrice: ''
     }
     // ref to the file upload input button
     fileInputRef = React.createRef();
@@ -22,8 +23,12 @@ class AddService extends Component {
     onDescriptionChangeHandler = (event) => {
         this.setState({ description: event.target.value });;
     }
+    onPriceChangeHandler = (event) => {
+        this.setState({ price: event.target.value });
+    }
 
     onFileChangeHandler = (event) => {
+        console.log('[onChangeFileHandler] called...')
         // event.preventDefault();
         let file = event.target.files[0];
 
@@ -40,28 +45,47 @@ class AddService extends Component {
         })
             .then(response => {
                 console.log(response.data);
-                this.setState({ imageUrl: response.data.secureurl })
+                this.setState({ imageUrl: response.data.secureurl });
             })
             .catch(err => {
                 console.log('something went wrong');
             });
     }
 
-    uploadClick = () => {
-        console.log('file button clicked');
+
+
+    addServiceHandler = (event) => {
+        event.preventDefault();
+        // get the data object from the state
+        const ServiceData = {
+            title: this.state.title,
+            description: this.state.description,
+            imgUrl: this.state.imageUrl,
+            price: this.state.basePrice
+        }
+
+        const data = JSON.stringify(ServiceData);
+        axios.post('https://services-fix-api.herokuapp.com/services', data)
+            // axios.post('localhost:5000')
+            .then(response => console.log("Response from backend", response));
     }
 
-    addServiceHandler = () => {
 
-    }
+    // Simulate the click event for the file input field
     onClickSimulator = (event) => {
         event.preventDefault();
         const uploadNode = this.fileInputRef.current;
         uploadNode.click();
     }
+
+    // for testing if the simulated click event worked
+    uploadClick = () => {
+        console.log('file button clicked');
+    }
+
+
     render() {
         return (
-
             <Card className={classes.AddService}>
                 <form
                     className={classes.AddSrvice}
@@ -79,7 +103,7 @@ class AddService extends Component {
                         type="number"
                         placeholder="Basic charge"
                         onChange={this.onPriceChangeHandler} />
-                    
+
 
                     <input
                         onClick={this.uploadClick}
@@ -87,12 +111,12 @@ class AddService extends Component {
                         name="serviceimage"
                         type="file"
                         onChange={this.onFileChangeHandler}
-                    />  
-                    
+                    />
+
                     <button
                         className={classes.FileSimulator}
                         onClick={this.onClickSimulator}
-                    >Choose Image</button>
+                    >Choose Image File</button>
 
                     <input className={classes.Submit}
                         type="submit" value="Add Service" />
