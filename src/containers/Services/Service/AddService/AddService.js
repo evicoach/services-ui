@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Card from '../../../../components/UI/Card/Card';
 import { CLOUDURL as url, CLOUDPRESET as preset } from '../../../../config/config'
-import Input from "../../../../components/UI/Input/Input";
+// import Input from "../../../../components/UI/Input/Input";
 import classes from './AddService.module.css';
 
 
@@ -57,16 +57,16 @@ class AddService extends Component {
     addServiceHandler = (event) => {
         event.preventDefault();
         // get the data object from the state
-        const ServiceData = {
+        let data = {
             title: this.state.title,
             description: this.state.description,
-            imgUrl: this.state.imageUrl,
-            price: this.state.basePrice
+            price: this.state.basePrice,
+            imageUrl: this.state.imageUrl
         }
 
-        const data = JSON.stringify(ServiceData);
+        data = JSON.stringify(data);
         axios.post('https://services-fix-api.herokuapp.com/services', data)
-            // axios.post('localhost:5000')
+            // axios.post('http://localhost:5000',data)
             .then(response => console.log("Response from backend", response));
     }
 

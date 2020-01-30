@@ -4,7 +4,7 @@ import AddService from '../../containers/Services/Service/AddService/AddService'
 import { Switch, Route } from "react-router-dom";
 import Services from "../../containers/Services/Services";
 import classes from "./MainArea.module.css";
-import Backdrop from "../UI/Backdrop/Backdrop";
+// import Backdrop from "../UI/Backdrop/Backdrop";
 
 const mainArea = (props) => {
     let services = [
