@@ -6,13 +6,15 @@ import { CLOUDURL as url, CLOUDPRESET as preset } from '../../../../config/confi
 // import Input from "../../../../components/UI/Input/Input";
 import classes from './AddService.module.css';
 
+let configArray = [];
 
 class AddService extends Component {
     state = {
         title: '',
         description: '',
         basePrice: '',
-        imageUrl: ''
+        imageUrls: '',
+        axiosFormDataConfig: []
     }
 
     // ref to the file upload input button
@@ -42,51 +44,69 @@ class AddService extends Component {
     }
 
     onFileChangeHandler = (event) => {
-        console.log('[onChangeFileHandler] called...')
-        // event.preventDefault();
-        let file = event.target.files[0];
+        event.preventDefault();
+        
+        let efiles = event.target.files;
+        for (let index = 0; index < efiles.length; index++) {
+            const file = efiles[index];
 
-        let formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', preset);
-        axios({
-            url: url,
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/x-wwww-urlencoded"
-            },
-            data: formData
-        })
-            .then(response => {
-                console.log(response.data);
-                this.setState({ imageUrl: response.data.secure_url });
-                console.log(this.state.imageUrl)
-            })
-            .catch(err => {
-                console.log('something went wrong');
-            });
-    }
+            console.log('from efile', file);
+
+            let eformData = new FormData();
+            console.log('from eformData', eformData)
+            eformData.append('file', file);
+            eformData.append('upload_preset', preset);
+
+            let axiosFormDataConfig = {
+                url: url,
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/x-wwww-urlencoded"
+                },
+                data: eformData
+            }
+            configArray.push({ ...axiosFormDataConfig });
+            console.log('configArray', configArray)
+
+        } // end of for statement
+    } // end of onFileChangeHandler
 
 
 
     addServiceHandler = (event) => {
         event.preventDefault();
-        // get the data object from the state
-        let data = {
-            title: this.state.title,
-            description: this.state.description,
-            price: this.state.basePrice,
-            imageUrl: this.state.imageUrl
-        }
+        let imageUrls = [];
+        let filesPromises = configArray.map(config => {
+            return new Promise((resolve, reject) => {
+                axios(config)
+                    .then(response => {
+                        resolve(response.data.secure_url);
+                    })
+                    .catch(err => reject(err));
+            });
+        });
 
-        console.log(data);
+        Promise.all(filesPromises)
+            .then(filesUrls => {
+                console.log('These are the files urls:', filesUrls);
+                imageUrls = filesUrls;
 
-        // data = JSON.stringify(data);
-        axios.post('https://services-fix-api.herokuapp.com/services', data)
-            // axios.post('http://localhost:5000/services', data)
-            .then(response => console.log("Response from backend", response))
-            .catch(err => console.log(err));
-    }
+                // get the data object from the state
+                let data = {
+                    title: this.state.title,
+                    description: this.state.description,
+                    price: this.state.basePrice,
+                    imageUrls: imageUrls
+                }
+
+                // data = JSON.stringify(data);
+                axios.post('https://services-fix-api.herokuapp.com/services', data)
+                    .then(response => console.log("Response from backend", response))
+                    .catch(err => console.log(err));
+            });
+
+
+    } // end AddServiceHandler
 
 
     // Simulate the click event for the file input field
@@ -126,6 +146,7 @@ class AddService extends Component {
                     <input
                         onClick={this.uploadClick}
                         ref={this.fileInputRef}
+                        multiple
                         name="serviceimage"
                         type="file"
                         onChange={this.onFileChangeHandler}

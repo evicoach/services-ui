@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Card from "../../../components/UI/Card/Card";
 import classes from "./Service.module.css";
 
-class Service extends Component {
+class   Service extends Component {
     state = {
         id: null
     }
