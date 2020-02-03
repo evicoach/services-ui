@@ -1,3 +1,7 @@
 .ServiceDetail{
     grid-column: 2 / 12;
 }
+
+.ImagesSection{
+    display: flex;
+}

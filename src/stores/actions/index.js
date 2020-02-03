@@ -1,0 +1,1 @@
+export { getSingleService } from './singleServiceAction';

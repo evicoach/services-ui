@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import Services from "../../containers/Services/Services";
 import classes from "./MainArea.module.css";
 import axios from "axios";
+import ServiceDetail from "../../containers/Services/Service/ServiceDetail/ServiceDetail";
 // import Backdrop from "../UI/Backdrop/Backdrop";
 
 class MainArea extends Component {
@@ -36,6 +37,11 @@ class MainArea extends Component {
                     exact
                     path="/add-service"
                     component={AddService} />
+                <Route
+                    exact
+                    path="/service-details"
+                    component={ServiceDetail} />
+                
             </Switch>
         </main>);
     }

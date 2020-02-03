@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import axios from 'axios'
+import { CLOUDURL as url, CLOUDPRESET as preset } from '../../../../config/config';
+
 import Card from '../../../../components/UI/Card/Card';
-import { CLOUDURL as url, CLOUDPRESET as preset } from '../../../../config/config'
 // import Input from "../../../../components/UI/Input/Input";
 import classes from './AddService.module.css';
 
@@ -45,7 +46,7 @@ class AddService extends Component {
 
     onFileChangeHandler = (event) => {
         event.preventDefault();
-        
+
         let efiles = event.target.files;
         for (let index = 0; index < efiles.length; index++) {
             const file = efiles[index];
@@ -67,9 +68,8 @@ class AddService extends Component {
             }
             configArray.push({ ...axiosFormDataConfig });
             console.log('configArray', configArray)
-
         } // end of for statement
-    } // end of onFileChangeHandler
+    }
 
 
 
@@ -104,7 +104,6 @@ class AddService extends Component {
                     .then(response => console.log("Response from backend", response))
                     .catch(err => console.log(err));
             });
-
 
     } // end AddServiceHandler
 
@@ -142,7 +141,6 @@ class AddService extends Component {
                         placeholder="Basic charge"
                         onChange={this.onPriceChangeHandler} />
 
-
                     <input
                         onClick={this.uploadClick}
                         ref={this.fileInputRef}
@@ -164,4 +162,5 @@ class AddService extends Component {
         );
     }
 }
+
 export default AddService;
